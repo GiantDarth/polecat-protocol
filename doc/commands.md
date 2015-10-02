@@ -23,11 +23,11 @@ Every message sent to the server must follow the format:
 `{'jsonrpc': "2.0", 'method': "call_name", 'params': {'param1': 1, 'param2': "example", ...}, 'id': WIP}`
 #### Raw Example
 `{'jsonrpc': "2.0", 'method': "add_numbers", 'params': {'first_num': 1, 'second_num': 5}, 'id': WIP}`
+#### Direction
+Server <---- Client
 
 ### Server
 The server responds to Request objects, either giving a *result* or an *error* if one occured. If the call does not have a return type and the procedure succeeded, the server WILL ALWAYS set *result* to exactly `{}`.
-
-**NOTE:** The Polecat does not (as of this time of writing) implement JSON-RPC Notification Objects.
 
 #### Response Object
 <dl>
@@ -56,3 +56,27 @@ The server responds to Request objects, either giving a *result* or an *error* i
 WIP
 ##### Case 3
 WIP
+#### Direction
+Server ----> Client
+
+#### Notification Object
+Think of Polecat's interpretation of Notification objcts as "broadcasts" to the world, aka. the list of clients. Notifications are used for state updates and changes, such as broadcasting an OOC message to clients, or letting other clients know that one client changed the icon for a character.
+
+Notification objects in JSON-RPC 2.0 are like Request objects, only the ID is required to be ommitted. This is the main means of a Polecat server to be the initiator as opposed to the client's Request objects. By requirement, nothing should be sent back, the client shouldn't respond, not even on an error. When an error occurs, it is expected to espond silently (likely from a client disconnect, in which case the client will be removed from the server anyways.)
+
+<dl>
+<dt>jsonrpc</dt>
+<dd>The version of jsonrpc to be used. EVERY Request must not only contain this, but set to exactly `"2.0"`.
+<dt>method</dt>
+<dd>The name of the call set forth by the protocol's API. Every call is in lowercase, words separated by _'s.</dd>
+<dt>params</dt>
+<dd>A JSON structure based on the arguments needed. This MAY be omitted when a parameter is not required. Parameter values may be primitives or JSON structures themselves.</dd>
+</dl>
+
+*White space is ignored.*
+#### Raw Format
+`{'jsonrpc': "2.0", 'method': "call_name", 'params': {'param1': 1, 'param2': "example", ...}}`
+#### Raw Example
+`{'jsonrpc': "2.0", 'method': "ooc", 'params': {'username': "My Name", 'message': "I'm speaking now.", 'channel': 0, subchannel: 0}}`
+#### Direction
+Server ----> Client(s)
