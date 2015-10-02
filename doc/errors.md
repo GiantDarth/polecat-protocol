@@ -3,9 +3,10 @@ Error Objects are similarly defined by the JSON-RPC 2.0 specification to Request
 
 ## Error Codes
 The following codes are defined by the [JSON-RPC 2.0](http://www.jsonrpc.org/specification) spec:
+
 | Error Codes | Message | JSON-RPC 2.0 Meaning |
 | ----------- | ------- | -------------------- |
-| -32700      | Parse error | Invalid JSON was received by the server. An error occurred on the server while parsing the JSON text. |
+| -32700      | Parse error | Invalid JSON was received by the server. An error occurred on the server while parsing the JSON text.
 | -32600      | Invalid Request | The JSON sent is not a valid Request object.
 | -32601      | Method not found | The method does not exist / is not available.
 | -32602      | Invalid params | Invalid method parameter(s).
@@ -17,6 +18,7 @@ For our use-case, the range of -32000 to -32099 is defined by the Polecat protoc
 Websocket binary frames are to be dropped silently, as the protocol is limited to text-only frames. Instead, binary data SHOULD be encoded as base64 and used directly in the Response Object.
 
 ### Polecat Protocol
+
 | Error Codes | Message | Polecat Protocol Meaning |
 | ----------- | ------- | ------------------------ |
 | -32000      | Not logged in. | Command is not accessible to client while not logged in.
