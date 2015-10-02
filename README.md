@@ -17,3 +17,7 @@ As of this writing (October 2, 2015), the RFC-6455 standard is supported *withou
 ## Messaging
 Polecat's messaging system uses [JSON-RPC 2.0](http://www.jsonrpc.org/specification) to transport data to and from the server-client system. All implementations MUST follow the 2.0 version. However, Polecat also extends a specific use-case.
 In Polecat, the client might not always need a "meaningful", detailed response, but still needs to know when an error has occured. The Notification object doesn't suit this, as it doesn't allow for any sort of response, even upon errors. Therefore, when a Response object is needed for an error but no meaningful **result* is needed, the protocol MUST set the Response's result to {}, an empty object. When receiving an {}, this is taken to mean that the procedure succeeded.
+
+## Limitations
+* While Polecat promotes security, this can never be 100% guranteed in the real world. Limitations in the creator's knowledge or experience, human errors, and the unforeseeable future of technologies can interfere with security in mind.
+* The Polecat Protocol does not specify inter-server communication as of the first version, which limits peer-to-peer server architecture.
